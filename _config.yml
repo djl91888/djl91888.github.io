@@ -11,7 +11,7 @@ github_repo: "https://github.com/djl91888/djl91888.github.io.git" # you code rep
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "Goals determine what you going to be!"
+sidebar-about-description: "世界不仅如此精彩！"
 sidebar-avatar: /img/JL.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
