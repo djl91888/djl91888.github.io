@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📰 每日新闻简报</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-secondary: #8b949e;
+      --accent: #58a6ff;
+      --red: #f85149;
+      --green: #3fb950;
+      --orange: #d29922;
+      --purple: #bc8cff;
+      --pink: #f778ba;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    .container { max-width: 960px; margin: 0 auto; padding: 20px 16px; }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--purple), var(--pink));
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .header h1 { font-size: 22px; font-weight: 700; }
+    .header h1 span { color: var(--accent); }
+    .stats-bar {
+      display: flex;
+      gap: 20px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .stat-item strong {
+      color: var(--text);
+      font-size: 18px;
+      display: block;
+    }
+
+    /* Controls */
+    .controls {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .controls input[type="text"] {
+      flex: 1;
+      min-width: 200px;
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .controls input:focus { border-color: var(--accent); }
+    .controls select {
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Date group */
+    .date-group { margin-bottom: 24px; }
+    .date-header {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      padding: 8px 0;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .date-header .count-badge {
+      font-size: 12px;
+      background: rgba(88,166,255,0.15);
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+
+    /* News item */
+    .news-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      transition: border-color 0.2s;
+      overflow: hidden;
+    }
+    .news-item:hover { border-color: #484f58; }
+    .news-item.expanded { border-color: var(--accent); }
+    .news-head {
+      padding: 14px 18px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .news-left { flex: 1; }
+    .news-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .news-title {
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .tag-stock { background: rgba(248,81,73,0.15); color: var(--red); }
+    .tag-tech { background: rgba(88,166,255,0.15); color: var(--accent); }
+    .tag-finance { background: rgba(210,153,34,0.15); color: var(--orange); }
+    .tag-policy { background: rgba(63,185,80,0.15); color: var(--green); }
+    .tag-hot { background: rgba(188,140,255,0.15); color: var(--purple); }
+    .tag-storage { background: rgba(247,120,186,0.15); color: var(--pink); }
+    .tag-weather { background: rgba(88,166,255,0.1); color: #79c0ff; }
+    .news-time {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+    .toggle-arrow {
+      color: var(--text-secondary);
+      font-size: 14px;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .news-item.expanded .toggle-arrow { transform: rotate(180deg); }
+    .news-body {
+      display: none;
+      padding: 0 18px 16px;
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--text-secondary);
+    }
+    .news-body a {
+      color: var(--accent);
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .news-body a:hover { text-decoration: underline; }
+    .news-item.expanded .news-body { display: block; }
+
+    /* Fire icon */
+    .fire { color: #f85149; margin-right: 2px; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .header { padding: 20px; }
+      .header h1 { font-size: 18px; }
+      .controls { flex-direction: column; }
+      .controls input, .controls select { width: 100%; }
+      .news-head { padding: 12px 14px; }
+      .news-body { padding: 0 14px 14px; }
+    }
+
+    /* Empty state */
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+    }
+    .empty-icon { font-size: 48px; margin-bottom: 12px; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-top">
+        <h1>📰 <span>每日新闻简报</span></h1>
+        <div style="font-size:13px;color:var(--text-secondary)">自动更新 · GitHub Pages</div>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-item">
+          <strong id="totalCount">-</strong>
+          新闻总数
+        </div>
+        <div class="stat-item">
+          <strong id="dayCount">-</strong>
+          覆盖天数
+        </div>
+        <div class="stat-item">
+          <strong id="latestDate">-</strong>
+          最新日期
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <input type="text" id="searchInput" placeholder="🔍 搜索新闻标题或内容..." />
+      <select id="typeFilter">
+        <option value="">全部分类</option>
+        <option value="股市">🔴 股市</option>
+        <option value="科技">🤖 科技</option>
+        <option value="金融">💰 金融</option>
+        <option value="时政">🌍 时政</option>
+        <option value="热门">📈 热门</option>
+        <option value="存储">💾 存储</option>
+      </select>
+      <select id="dateFilter">
+        <option value="">全部日期</option>
+      </select>
+    </div>
+
+    <div id="newsList"></div>
+
+    <div class="footer">
+      Powered by <a href="https://github.com/djl91888">djl91888</a> · ✨ 同辉自动生成
+    </div>
+  </div>
+
+  <script>
+    const TAG_MAP = {
+      '股市': 'tag-stock', '科技': 'tag-tech', '金融': 'tag-finance',
+      '时政': 'tag-policy', '热门': 'tag-hot', '存储': 'tag-storage',
+      '天气': 'tag-weather'
+    };
+
+    let allNews = [];
+
+    async function init() {
+      try {
+        const r = await fetch('data.json?' + Date.now());
+        allNews = await r.json();
+        allNews.sort((a, b) => b.date.localeCompare(a.date));
+        populateDateFilter();
+        updateStats();
+        render();
+      } catch (e) {
+        document.getElementById('newsList').innerHTML =
+          '<div class="empty"><div class="empty-icon">⚠️</div><div>数据加载失败</div></div>';
+      }
+    }
+
+    function populateDateFilter() {
+      const dates = [...new Set(allNews.map(n => n.date.slice(0, 10)))];
+      const sel = document.getElementById('dateFilter');
+      dates.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d; opt.textContent = d;
+        sel.appendChild(opt);
+      });
+    }
+
+    function updateStats() {
+      const dates = [...new Set(allNews.map(n => n.date.slice(0, 10)))];
+      document.getElementById('totalCount').textContent = allNews.length;
+      document.getElementById('dayCount').textContent = dates.length;
+      document.getElementById('latestDate').textContent = dates[0] || '-';
+    }
+
+    function getFiltered() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const t = document.getElementById('typeFilter').value;
+      const d = document.getElementById('dateFilter').value;
+      return allNews.filter(n => {
+        if (q && !n.title.toLowerCase().includes(q) && !(n.content||'').toLowerCase().includes(q)) return false;
+        if (t && n.category !== t) return false;
+        if (d && !n.date.startsWith(d)) return false;
+        return true;
+      });
+    }
+
+    function esc(s) {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function linkify(text) {
+      return esc(text).replace(
+        /(https?:\/\/[^\s<]+)/g,
+        '<a href="$1" target="_blank" rel="noopener">$1</a>'
+      );
+    }
+
+    function render() {
+      const list = getFiltered();
+      const el = document.getElementById('newsList');
+
+      if (!list.length) {
+        el.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><div>暂无匹配结果</div></div>';
+        return;
+      }
+
+      // Group by date
+      const groups = {};
+      list.forEach(n => {
+        const day = n.date.slice(0, 10);
+        if (!groups[day]) groups[day] = [];
+        groups[day].push(n);
+      });
+
+      el.innerHTML = Object.entries(groups).map(([day, items]) => `
+        <div class="date-group">
+          <div class="date-header">
+            📅 ${day}
+            <span class="count-badge">${items.length} 条</span>
+          </div>
+          ${items.map((n, i) => {
+            const tagClass = TAG_MAP[n.category] || 'tag-hot';
+            const fire = n.hot ? '<span class="fire">🔥</span>' : '';
+            const id = day + '-' + i;
+            return `
+              <div class="news-item" id="${id}">
+                <div class="news-head" onclick="toggle('${id}')">
+                  <div class="news-left">
+                    <div class="news-title-row">
+                      ${fire}<span class="news-title">${esc(n.title)}</span>
+                      <span class="tag ${tagClass}">${n.category || '其他'}</span>
+                    </div>
+                    <div class="news-time">${n.source ? n.source + ' · ' : ''}${n.date.slice(11) || ''}</div>
+                  </div>
+                  <span class="toggle-arrow">▼</span>
+                </div>
+                <div class="news-body">${linkify(n.content || '暂无详情')}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `).join('');
+    }
+
+    function toggle(id) {
+      document.getElementById(id).classList.toggle('expanded');
+    }
+
+    document.getElementById('searchInput').addEventListener('input', render);
+    document.getElementById('typeFilter').addEventListener('change', render);
+    document.getElementById('dateFilter').addEventListener('change', render);
+
+    init();
+  </script>
+</body>
+</html>
