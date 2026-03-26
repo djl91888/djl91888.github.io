@@ -1,5 +1,69 @@
 [
   {
+    "date": "2026-03-26 08:00",
+    "title": "上证指数突破 3900 点 涨 0.88% 报 3915.49 点",
+    "category": "股市",
+    "source": "新浪财经",
+    "hot": true,
+    "content": "截至上午收盘，上证指数上涨 0.88%，报 3915.49 点，深证成指上涨 1.37%，创业板指上涨 1.26%，科创综指上涨 1.06%。光芯片、CPO 概念、黄金概念等板块涨幅居前。https://finance.sina.cn/2026-03-25/detail-inhseqhc9812473.d.html"
+  },
+  {
+    "date": "2026-03-26 08:00",
+    "title": "中国 AI 调用量首超美国 2 月单周 4.12 万亿 Token",
+    "category": "科技",
+    "source": "36 氪",
+    "hot": true,
+    "content": "2 月中国 AI 模型调用量爆发式增长，首次超过美国。OpenRouter 数据显示，9 日 -15 日这周，中国模型以 4.12 万亿 Token 的调用量，首次超过同期美国模型的 2.94 万亿 Token，四款大模型霸榜全球前五。https://36kr.com/p/3700980530851712"
+  },
+  {
+    "date": "2026-03-26 08:00",
+    "title": "Arm 推出首款自研 AI 晶片 AGI CPU 股价飆漲 13%",
+    "category": "科技",
+    "source": "鉅亨網",
+    "hot": true,
+    "content": "英國晶片設計公司 Arm Holdings 宣布推出首款自研資料中心人工智慧晶片「AGI CPU」，並預估該產品至 2031 年將單獨貢獻 150 億美元營收，激勵股價在周三 (25 日) 盤前大漲逾 13%。https://news.cnyes.com/news/id/6396989"
+  },
+  {
+    "date": "2026-03-26 08:00",
+    "title": "Bitmine 加密資產達 110 億美元 持有 466.1 萬枚 ETH",
+    "category": "金融",
+    "source": "京海傳媒",
+    "hot": true,
+    "content": "Bitmine Immersion Technologies 宣佈其以太幣持有量達 466.1 萬枚代幣，加密資產及現金總持有額達 110 億美元。持續獲得頂級機構投資者支持，包括 ARK 的 Cathie Wood、Pantera、Galaxy Digital 等。https://www.jinghaimedia.com/archives/45200"
+  },
+  {
+    "date": "2026-03-26 08:00",
+    "title": "OpenAI 籌資 100 億美元 預計 3 月底完成",
+    "category": "科技",
+    "source": "富途牛牛",
+    "hot": false,
+    "content": "OpenAI 正與銀行合作夥伴合作，希望從更廣泛的投資者群體中爭取額外 100 億美元的投資承諾，並預計這部分融資將於今年 3 月底完成。https://news.futunn.com/en/post/70600140"
+  },
+  {
+    "date": "2026-03-26 08:00",
+    "title": "Mirage 獲 7500 萬美元融資 AI 視頻編輯 API",
+    "category": "科技",
+    "source": "小灰灰的筆記",
+    "hot": false,
+    "content": "AI 视频编辑公司 Mirage（原 Captions）宣布完成 7500 万美元增长轮融资，由 General Catalyst 的客户价值基金（CVF）领投。这笔融资将用于继续开发专有的视频生成模型，并拓展高增长的亚洲市场。https://www.tinyash.com/blog/mirage-ai-video-api-developer-guide/"
+  },
+  {
+    "date": "2026-03-26 08:00",
+    "title": "Google 攜手 Agile Robots 打造機器人界 Android",
+    "category": "科技",
+    "source": "Technice",
+    "hot": false,
+    "content": "Google 旗下人工智慧部門 DeepMind 於 24 日宣布，正式與德國機器人公司 Agile Robots 達成策略合作，雙方將把 Google 最新的 Gemini Robotics 基礎模型與 Agile Robots 的硬體架構深度整合，提升物理世界中的 AI 性能。https://www.technice.com.tw/technology/robot/210567/"
+  },
+  {
+    "date": "2026-03-26 08:00",
+    "title": "威剛領投康斯特 A 輪 300 萬美元 布局 AI 算力",
+    "category": "金融",
+    "source": "聯合新聞網",
+    "hot": false,
+    "content": "記憶體模組大廠威剛（3260）25 日宣布，領投 AI 算力基礎設施業者康斯特科技 A 輪募資 300 萬美元，正式插旗 AI 算力基礎設施市場。隨生成式 AI 與大型語言模型快速發展，全球高效能算力需求增長。https://udn.com/news/story/7240/9402504"
+  },
+  {
     "date": "2026-03-25 08:00",
     "title": "A股强势反弹！上证涨1.78%，深成指涨1.43%，超5200股飘红",
     "category": "股市",
